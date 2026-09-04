@@ -5,7 +5,7 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 FROM python:3.12-slim
 WORKDIR /app
 COPY --from=builder/root/.local/root/.localdoc
-COPY..
+COPY . .
 ENV PATH=/root/.local/bin:PATH
 RUN addgroup -S app && adduser -S app -G app
 USER app
