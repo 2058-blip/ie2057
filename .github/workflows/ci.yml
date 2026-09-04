@@ -17,7 +17,7 @@ permissions:
    contents: read
    packages: write
    
-    steps:
+steps:
       # 1. 自动拉取你的代码
       - name: Checkout code
         uses: actions/checkout@v4
