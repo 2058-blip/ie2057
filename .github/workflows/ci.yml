@@ -1,37 +1,33 @@
-# 给这个自动化流程起个名字
 name: Python CI Pipeline
 
-# 触发条件：当代码推送到 main 分支，或者提交 Pull Request 时自动运行
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
-# 定义具体要执行的任务
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest  # 在最新的 Ubuntu 系统上运行
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-permissions: 
-   contents: read
-   packages: write
-   
-steps:
-        - name: Checkout code
-            uses: actions/checkout@v4
-        - name: Login to GitHub Container Registry
-            uses: docker/login-action@v3
-            with:
-              registry: ghcr.io
-              username: ${{ github.actor }}
-              password: ${{ secrets.GITHUB_TOKEN }}
-         - name: Build and Push Docker Image
-             uses: docker/build-push-action@v5
-             with:
-              context: .
-              push: true
-              tags:
-               ghcr.io/${{github.repository_owner}}/hello world:latest
-               ghcr.io/${{github.repository_owner}}/hello world:${{ github.sha }}
-   
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/hello-world:latest
+            ghcr.io/${{ github.repository_owner }}/hello-world:${{ github.sha }}
