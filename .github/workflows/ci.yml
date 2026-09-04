@@ -19,22 +19,22 @@ permissions:
    
     steps:
       # 1. 自动拉取你的代码
-      - name: Checkout code
-        uses: actions/checkout@v4
+       - name: Checkout code
+         uses: actions/checkout@v4
 
-      - name: Login to GitHub Container Registery
-      uses: docker/login-action@v3
-      with:
-       registry: ghcr.io
-       usersname: ＄{{gothub.actor}}
-       password: ＄{{secrets.GITHUB_TOKEN}}
-
-       - name: Build and Push Docker Image
-         uses: docker/build-push-action@v5
+       - name: Login to GitHub Container Registery
+         uses: docker/login-action@v3
          with:
-           context: .
-           push: true
-           tags:
-            ghcr.io/${{github.repository_owner}}/hello world:latest
-            ghcr.io/${{github.repository_owner}}/hello world:${{ github.sha }}
+         registry: ghcr.io
+          usersname: ＄{{gothub.actor}}
+           password: ＄{{secrets.GITHUB_TOKEN}}
+
+        - name: Build and Push Docker Image
+          uses: docker/build-push-action@v5
+          with:
+            context: .
+            push: true
+            tags:
+             ghcr.io/${{github.repository_owner}}/hello world:latest
+             ghcr.io/${{github.repository_owner}}/hello world:${{ github.sha }}
    
