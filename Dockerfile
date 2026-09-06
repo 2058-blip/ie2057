@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5000
 
 # 6. 启动命令（请确保 app.py 是你真实的启动文件名）
-CMD ["python", "app.py"]
+CMD ["python", "script2.py"]
